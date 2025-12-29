@@ -43,14 +43,14 @@ app.use((req, res) => {
     res.status(404).render('404', { title: 'Page Not Found' });
 });
 
-// Error handler
-// app.use((err, req, res, next) => {
-//     console.error('Error:', err);
-//     res.status(500).render('500', { 
-//         title: 'Server Error',
-//         error: process.env.NODE_ENV === 'development' ? err : {}
-//     });
-// });
+// Error handler (UNCOMMENT THIS)
+app.use((err, req, res, next) => {
+    console.error('Error:', err);
+    res.status(500).render('500', { 
+        title: 'Server Error',
+        error: process.env.NODE_ENV === 'development' ? err : {}
+    });
+});
 
 // Initialize server
 async function startServer() {

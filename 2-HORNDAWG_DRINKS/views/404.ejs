@@ -1,0 +1,54 @@
+<%- include('partials/header', {lang: 'en', t: {nav: {home: 'Home', about: 'About Us', contact: 'Contact Us', language: '🇬🇧 EN'}}}) %>
+
+<style>
+    .error-gradient {
+        background: linear-gradient(135deg, #991b1b 0%, #0f172a 100%);
+    }
+</style>
+
+<!-- 404 Error Section -->
+<section class="min-h-screen error-gradient relative overflow-hidden flex items-center justify-center pt-20">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-0 left-0 w-full h-full" style="background-image: radial-gradient(circle, rgba(245, 158, 11, 0.3) 1px, transparent 1px); background-size: 50px 50px;"></div>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-6 text-center py-20">
+        <!-- 404 Text -->
+        <h1 class="font-fredoka text-9xl md:text-[12rem] lg:text-[15rem] text-gold mb-8 leading-none drop-shadow-[0_15px_40px_rgba(245,158,11,0.6)]">
+            404
+        </h1>
+
+        <!-- Error Message -->
+        <h2 class="font-fredoka text-4xl md:text-5xl lg:text-6xl text-white mb-6 leading-tight">
+            PAGE NOT FOUND
+        </h2>
+
+        <p class="text-xl md:text-2xl text-white/80 font-light mb-12 max-w-2xl mx-auto leading-relaxed">
+            Oops! The page you're looking for doesn't exist. It might have been moved or deleted.
+        </p>
+
+        <!-- Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a href="/" class="inline-flex items-center gap-3 bg-gradient-to-r from-gold to-orange-400 text-navy px-10 py-4 rounded-full font-black text-lg uppercase tracking-wider hover:scale-105 hover:shadow-[0_20px_50px_rgba(245,158,11,0.6)] transition-all duration-300 shadow-xl">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                </svg>
+                Go Home
+            </a>
+            <a href="/contact" class="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white px-10 py-4 rounded-full font-black text-lg uppercase tracking-wider hover:bg-white/20 hover:scale-105 transition-all duration-300 shadow-xl">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+                Contact Us
+            </a>
+        </div>
+
+        <!-- Fun Animation -->
+        <div class="mt-16 text-6xl animate-bounce">
+            🤔
+        </div>
+    </div>
+</section>
+
+<%- include('partials/footer', {lang: 'en', t: {footer: {quicklinks: 'QUICKLINKS', home: 'Home', about: 'About Us', contact: 'Contact Us', privacy: 'Privacy Policy', imprint: 'Imprint', copyright: '© 2025 HORN DAWG DRINKS. ALL RIGHTS RESERVED.'}}}) %>

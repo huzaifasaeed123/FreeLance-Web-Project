@@ -1,0 +1,35 @@
+<%- include('partials/header', {lang: 'en', t: {nav: {home: 'Home', about: 'About Us', contact: 'Contact Us', language: '🇬🇧 EN'}}}) %>
+
+<style>
+    .error-gradient {
+        background: linear-gradient(135deg, #7f1d1d 0%, #0f172a 100%);
+    }
+</style>
+
+<section class="min-h-screen error-gradient relative overflow-hidden flex items-center justify-center pt-20">
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-0 left-0 w-full h-full" style="background-image: radial-gradient(circle, rgba(239, 68, 68, 0.3) 1px, transparent 1px); background-size: 50px 50px;"></div>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-6 text-center py-20">
+        <h1 class="font-fredoka text-9xl md:text-[12rem] text-red-500 mb-8 leading-none drop-shadow-[0_15px_40px_rgba(239,68,68,0.6)]">
+            500
+        </h1>
+
+        <h2 class="font-fredoka text-4xl md:text-5xl text-white mb-6 leading-tight">
+            SERVER ERROR
+        </h2>
+
+        <p class="text-xl md:text-2xl text-white/80 font-light mb-12 max-w-2xl mx-auto">
+            Something went wrong on our end. We're working to fix it!
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/" class="inline-flex items-center gap-3 bg-gradient-to-r from-red-600 to-red-800 text-white px-10 py-4 rounded-full font-black text-lg uppercase tracking-wider hover:scale-105 transition-all duration-300 shadow-xl">
+                Go Home
+            </a>
+        </div>
+    </div>
+</section>
+
+<%- include('partials/footer', {lang: 'en', t: {footer: {quicklinks: 'QUICKLINKS', home: 'Home', about: 'About Us', contact: 'Contact Us', privacy: 'Privacy Policy', imprint: 'Imprint', copyright: '© 2025 HORN DAWG DRINKS. ALL RIGHTS RESERVED.'}}}) %>
