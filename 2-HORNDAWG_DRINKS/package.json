@@ -1,0 +1,29 @@
+{
+  "name": "horndawg-website",
+  "version": "1.0.0",
+  "description": "Horn Dawg Drinks Website with Reservation System",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": ["horndawg", "drinks", "reservation"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "ejs": "^3.1.9",
+    "mysql2": "^3.6.5",
+    "dotenv": "^16.3.1",
+    "bcryptjs": "^2.4.3",
+    "express-session": "^1.17.3",
+    "nodemailer": "^6.9.7",
+    "multer": "^1.4.5-lts.1",
+    "xlsx": "^0.18.5",
+    "body-parser": "^1.20.2",
+    "express-validator": "^7.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}

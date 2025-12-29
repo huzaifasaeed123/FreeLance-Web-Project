@@ -1,0 +1,174 @@
+<%- include('partials/header') %>
+
+<style>
+    .text-gradient {
+        background: linear-gradient(135deg, #f59e0b, #fb923c);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .form-input {
+        background: rgba(255, 255, 255, 0.95);
+        transition: all 0.3s ease;
+    }
+
+    .form-input:focus {
+        background: white;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
+    }
+
+    .form-input::placeholder {
+        color: #9ca3af;
+    }
+</style>
+
+<!-- Contact Section -->
+<section class="min-h-screen gradient-bg relative overflow-hidden pt-32 pb-20">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-0 left-0 w-full h-full" style="background-image: radial-gradient(circle, rgba(245, 158, 11, 0.3) 1px, transparent 1px); background-size: 50px 50px;"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6">
+        
+        <!-- Main Page Heading -->
+        <div class="text-center mb-16">
+            <h1 class="font-fredoka text-6xl md:text-8xl lg:text-9xl text-white drop-shadow-[0_15px_40px_rgba(0,0,0,0.6)] leading-none tracking-wider mb-4">
+                <%= t.contact.title %>
+            </h1>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-16 items-start">
+            
+            <!-- Left Side - Text Above, Logo Below -->
+            <div class="space-y-8">
+                
+                <!-- Text Section at Top -->
+                <div class="space-y-6">
+                    <h2 class="font-fredoka text-4xl md:text-5xl lg:text-6xl text-gradient leading-tight">
+                        <%= t.contact.heading %>
+                    </h2>
+                    <p class="text-lg md:text-xl text-white leading-relaxed font-light">
+                        <%= t.contact.subtitle %>
+                    </p>
+                </div>
+
+                <!-- Logo Card with Dark Navy/Charcoal Background -->
+                <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl p-12 md:p-16 shadow-2xl border-2 border-slate-700">
+                    <img src="/images/logo.png" alt="Horn Dawg Drinks" class="w-full max-w-md mx-auto drop-shadow-2xl">
+                </div>
+                
+            </div>
+
+            <!-- Right Side - Contact Form -->
+            <div class="bg-gradient-to-br from-navy to-[#0a0f1f] rounded-3xl p-8 md:p-12 shadow-2xl border-2 border-gray-800">
+                <form id="contactForm" class="space-y-6">
+                    
+                    <!-- Name Field -->
+                    <div>
+                        <label for="name" class="block text-white font-bold text-sm mb-3 uppercase tracking-wider">
+                            <%= t.contact.form.name %>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="name" 
+                            name="name" 
+                            required
+                            class="form-input w-full px-6 py-4 rounded-xl border-2 border-transparent focus:border-gold focus:outline-none text-navy font-medium text-lg"
+                            placeholder="<%= t.contact.form.namePlaceholder %>"
+                        >
+                    </div>
+
+                    <!-- Email Field -->
+                    <div>
+                        <label for="email" class="block text-white font-bold text-sm mb-3 uppercase tracking-wider">
+                            <%= t.contact.form.email %>
+                        </label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            required
+                            class="form-input w-full px-6 py-4 rounded-xl border-2 border-transparent focus:border-gold focus:outline-none text-navy font-medium text-lg"
+                            placeholder="<%= t.contact.form.emailPlaceholder %>"
+                        >
+                    </div>
+
+                    <!-- Subject Field -->
+                    <div>
+                        <label for="subject" class="block text-white font-bold text-sm mb-3 uppercase tracking-wider">
+                            <%= t.contact.form.subject %>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="subject" 
+                            name="subject" 
+                            required
+                            class="form-input w-full px-6 py-4 rounded-xl border-2 border-transparent focus:border-gold focus:outline-none text-navy font-medium text-lg"
+                            placeholder="<%= t.contact.form.subjectPlaceholder %>"
+                        >
+                    </div>
+
+                    <!-- Message Field -->
+                    <div>
+                        <label for="message" class="block text-white font-bold text-sm mb-3 uppercase tracking-wider">
+                            <%= t.contact.form.message %>
+                        </label>
+                        <textarea 
+                            id="message" 
+                            name="message" 
+                            rows="5" 
+                            required
+                            class="form-input w-full px-6 py-4 rounded-xl border-2 border-transparent focus:border-gold focus:outline-none text-navy font-medium text-lg resize-none"
+                            placeholder="<%= t.contact.form.messagePlaceholder %>"
+                        ></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="pt-4">
+                        <button 
+                            type="submit"
+                            class="w-full bg-gradient-to-r from-burgundy to-red-800 text-white px-10 py-5 rounded-xl font-black text-lg uppercase tracking-widest hover:scale-105 hover:shadow-[0_15px_40px_rgba(153,27,27,0.5)] transition-all duration-300 shadow-xl"
+                        >
+                            <%= t.contact.form.submit %>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<script>
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData);
+        
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                alert('Message sent successfully!');
+                this.reset();
+            } else {
+                alert(result.message || 'Error sending message');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error sending message. Please try again.');
+        }
+    });
+</script>
+
+<%- include('partials/footer') %>
