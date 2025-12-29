@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - Horn Dawg Drinks Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation -->
+    <%- include('../partials/admin-nav') %>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Orders Management</h1>
+            <div class="text-sm text-gray-600">
+                Total: <%= pagination ? pagination.totalOrders : 0 %> orders
+            </div>
+        </div>
+
+        <!-- Search and Filter Bar -->
+        <div class="bg-white rounded-lg shadow p-6 mb-6">
+            <form method="GET" action="/admin/orders" class="space-y-4 md:space-y-0 md:flex md:gap-4">
+                <!-- Search Input -->
+                <div class="flex-1">
+                    <input 
+                        type="text" 
+                        name="search" 
+                        value="<%= filters ? filters.search : '' %>" 
+                        placeholder="Search by name, email, or zipcode..."
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    >
+                </div>
+
+                <!-- Product Filter -->
+                <div class="w-full md:w-64">
+                    <select 
+                        name="product" 
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    >
+                        <option value="">All Products</option>
+                        <% if (products && products.length > 0) { %>
+                            <% products.forEach(product => { %>
+                                <option value="<%= product %>" <%= (filters && filters.product === product) ? 'selected' : '' %>>
+                                    <%= product %>
+                                </option>
+                            <% }); %>
+                        <% } %>
+                    </select>
+                </div>
+
+                <!-- Buttons -->
+                <div class="flex gap-2">
+                    <button 
+                        type="submit" 
+                        class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                    >
+                        Search
+                    </button>
+                    <a 
+                        href="/admin/orders" 
+                        class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
+                    >
+                        Reset
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Orders Table -->
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+            <% if (orders && orders.length > 0) { %>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Zipcode</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Price</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <% orders.forEach(order => { %>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">#<%= order.id %></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><%= order.name %></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600"><%= order.email %></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600"><%= order.zipcode %></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                        <span class="px-2 py-1 text-xs font-semibold rounded-full 
+                                            <%= order.product.includes('Watermelon') ? 'bg-red-100 text-red-800' : 'bg-blue-100 text-blue-800' %>">
+                                            <%= order.product %>
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600"><%= order.quantity %></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-green-600">€<%= parseFloat(order.total_price).toFixed(2) %></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        <%= new Date(order.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) %>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <% if (pagination && pagination.totalPages > 1) { %>
+                    <div class="bg-white px-4 py-3 border-t border-gray-200 sm:px-6">
+                        <div class="flex items-center justify-between">
+                            <div class="text-sm text-gray-700">
+                                Page <span class="font-medium"><%= pagination.page %></span> of <span class="font-medium"><%= pagination.totalPages %></span>
+                            </div>
+                            <div class="flex gap-2">
+                                <% if (pagination.page > 1) { %>
+                                    <a href="?page=<%= pagination.page - 1 %><%= filters.search ? '&search=' + filters.search : '' %><%= filters.product ? '&product=' + filters.product : '' %>" 
+                                       class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
+                                        Previous
+                                    </a>
+                                <% } %>
+                                <% if (pagination.page < pagination.totalPages) { %>
+                                    <a href="?page=<%= pagination.page + 1 %><%= filters.search ? '&search=' + filters.search : '' %><%= filters.product ? '&product=' + filters.product : '' %>" 
+                                       class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                                        Next
+                                    </a>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+            <% } else { %>
+                <div class="text-center py-12">
+                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    <h3 class="mt-2 text-sm font-medium text-gray-900">No orders found</h3>
+                    <p class="mt-1 text-sm text-gray-500">Try adjusting your search or filters.</p>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>
