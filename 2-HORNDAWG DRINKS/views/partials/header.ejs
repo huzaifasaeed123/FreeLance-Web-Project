@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title || 'Horn Dawg Drinks' %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'fredoka': ['Fredoka One', 'cursive'],
+                        'poppins': ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        'navy': '#0F172A',
+                        'burgundy': '#991b1b',
+                        'gold': '#f59e0b',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #991b1b 100%);
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Language dropdown */
+        .lang-dropdown {
+            position: relative;
+        }
+        .lang-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 0.5rem;
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+            min-width: 120px;
+            z-index: 1000;
+        }
+        .lang-dropdown:hover .lang-menu {
+            display: block;
+        }
+        .lang-option {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 600;
+            color: #0F172A;
+        }
+        .lang-option:hover {
+            background: #f59e0b;
+            color: white;
+        }
+    </style>
+</head>
+<body class="font-poppins bg-amber-50">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 z-50 gradient-bg border-b-2 border-gold shadow-2xl backdrop-blur-sm bg-opacity-95">
+        <div class="max-w-7xl mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex-shrink-0">
+                    <a href="/?lang=<%= lang %>">
+                        <img src="/images/logo.png" alt="Horn Dawg Drinks" class="h-14 w-auto animate-float drop-shadow-[0_0_10px_rgba(245,158,11,0.3)] hover:scale-110 transition-transform duration-300">
+                    </a>
+                </div>
+                <ul class="hidden md:flex space-x-8 items-center">
+                    <li><a href="/?lang=<%= lang %>" class="text-white font-bold text-sm uppercase tracking-wider hover:text-gold transition-all duration-300 relative group">
+                        <span class="relative z-10"><%= t.nav.home %></span>
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gold group-hover:w-full transition-all duration-300"></span>
+                    </a></li>
+                    <li><a href="/about?lang=<%= lang %>" class="text-white font-bold text-sm uppercase tracking-wider hover:text-gold transition-all duration-300 relative group">
+                        <span class="relative z-10"><%= t.nav.about %></span>
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gold group-hover:w-full transition-all duration-300"></span>
+                    </a></li>
+                    <li><a href="/contact?lang=<%= lang %>" class="text-white font-bold text-sm uppercase tracking-wider hover:text-gold transition-all duration-300 relative group">
+                        <span class="relative z-10"><%= t.nav.contact %></span>
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gold group-hover:w-full transition-all duration-300"></span>
+                    </a></li>
+                    <li class="lang-dropdown">
+                        <div class="bg-gradient-to-r from-gold to-orange-400 text-navy px-4 py-2 rounded-full font-black text-sm cursor-pointer hover:scale-105 hover:shadow-lg transition-all duration-300">
+                            <%= t.nav.language %> ▼
+                        </div>
+                        <div class="lang-menu">
+                            <a href="?lang=en" class="lang-option block">🇬🇧 English</a>
+                            <a href="?lang=de" class="lang-option block">🇩🇪 Deutsch</a>
+                        </div>
+                    </li>
+                </ul>
+                <button class="md:hidden text-white">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
