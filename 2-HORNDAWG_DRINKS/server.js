@@ -44,13 +44,13 @@ app.use((req, res) => {
 });
 
 // Error handler
-app.use((err, req, res, next) => {
-    console.error('Error:', err);
-    res.status(500).render('500', { 
-        title: 'Server Error',
-        error: process.env.NODE_ENV === 'development' ? err : {}
-    });
-});
+// app.use((err, req, res, next) => {
+//     console.error('Error:', err);
+//     res.status(500).render('500', { 
+//         title: 'Server Error',
+//         error: process.env.NODE_ENV === 'development' ? err : {}
+//     });
+// });
 
 // Initialize server
 async function startServer() {

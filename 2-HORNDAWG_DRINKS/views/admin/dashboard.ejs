@@ -37,7 +37,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-gray-500 text-sm">Total Revenue</p>
-                            <p class="text-3xl font-bold text-green-600">€<%= (stats.orders.total_revenue || 0).toFixed(2) %></p>
+                            <p class="text-3xl font-bold text-green-600"> €<%= Number(stats.orders.total_revenue || 0).toFixed(2) %>></p>
                         </div>
                         <div class="bg-green-100 p-3 rounded-full">
                             <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
