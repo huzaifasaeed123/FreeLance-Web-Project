@@ -17,7 +17,7 @@ exports.loginPage = (req, res) => {
 // Handle login
 exports.login = async (req, res) => {
     const { username, password } = req.body;
-    
+    console.log(username,password)
     const result = await verifyAdminLogin(username, password);
     
     if (result.success) {

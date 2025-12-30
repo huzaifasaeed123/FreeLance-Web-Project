@@ -8,7 +8,6 @@ async function createDefaultAdmin() {
         const username = process.env.ADMIN_USERNAME;
         const password = process.env.ADMIN_PASSWORD;
         const email = process.env.ADMIN_EMAIL;
-        
         if (!username || !password || !email) {
             console.log('⚠ Admin credentials not found in .env file');
             return;

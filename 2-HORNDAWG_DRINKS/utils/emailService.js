@@ -23,8 +23,12 @@ transporter.verify((error, success) => {
 });
 
 // Generate order confirmation email HTML
+// Generate order confirmation email HTML
 function generateOrderConfirmationEmail(orderData) {
     const { name, email, product, quantity, total_price } = orderData;
+    
+    // Use your actual hosted logo URL here
+    const logoUrl = process.env.WEBSITE_URL ? `${process.env.WEBSITE_URL}/images/logo.png` : 'https://horndawgdrinks.com/images/logo.png';
     
     return `
 <!DOCTYPE html>
@@ -32,21 +36,26 @@ function generateOrderConfirmationEmail(orderData) {
 <head>
     <meta charset="UTF-8">
     <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; }
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
         .header { background: linear-gradient(135deg, #0f172a 0%, #991b1b 100%); color: white; padding: 30px; text-align: center; }
+        .header-logo { max-width: 150px; height: auto; margin-bottom: 15px; }
         .content { background: #f9f9f9; padding: 30px; border-radius: 10px; margin: 20px 0; }
         .order-details { background: white; padding: 20px; border-radius: 8px; margin: 20px 0; }
         .detail-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; }
         .total { font-size: 20px; font-weight: bold; color: #991b1b; margin-top: 20px; }
-        .footer { text-align: center; color: #666; font-size: 12px; padding: 20px; }
+        .footer { text-align: center; color: #666; font-size: 12px; padding: 30px; background: #0f172a; }
+        .footer-logo { max-width: 120px; height: auto; margin-bottom: 15px; }
+        .footer p { color: #999; margin: 5px 0; }
         .emoji { font-size: 24px; }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Header with Logo -->
         <div class="header">
-            <h1>🎉 THANK YOU FOR YOUR RESERVATION!</h1>
+            <img src="${logoUrl}" alt="Horn Dawg Drinks" class="header-logo">
+            <h1 style="margin: 0;">🎉 THANK YOU FOR YOUR RESERVATION!</h1>
         </div>
         
         <div class="content">
@@ -79,7 +88,9 @@ function generateOrderConfirmationEmail(orderData) {
             </p>
         </div>
         
+        <!-- Footer with Logo -->
         <div class="footer">
+            <img src="${logoUrl}" alt="Horn Dawg Drinks" class="footer-logo">
             <p>© 2025 Horn Dawg Drinks. All rights reserved.</p>
             <p>For questions, visit our website or contact us.</p>
         </div>
@@ -88,7 +99,6 @@ function generateOrderConfirmationEmail(orderData) {
 </html>
     `;
 }
-
 // Add email to queue
 async function addEmailToQueue(orderId, recipientEmail, orderData) {
     try {

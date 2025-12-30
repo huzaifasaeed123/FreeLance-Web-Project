@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title || 'Horn Dawg Drinks' %></title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    <link rel="apple-touch-icon" href="/images/logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script>
@@ -50,23 +53,27 @@
             position: absolute;
             top: 100%;
             right: 0;
-            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            z-index: 1000;
+        }
+        .lang-menu-inner {
             background: white;
             border-radius: 0.75rem;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             overflow: hidden;
             min-width: 120px;
-            z-index: 1000;
         }
         .lang-dropdown:hover .lang-menu {
             display: block;
         }
         .lang-option {
+            display: block;
             padding: 0.75rem 1rem;
             cursor: pointer;
             transition: all 0.2s;
             font-weight: 600;
             color: #0F172A;
+            text-decoration: none;
         }
         .lang-option:hover {
             background: #f59e0b;
